@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Context antiJARLocking="true" path="/Modifica-Contratto-Web">
+    <Resource
+            name="jdbc/FERSA"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxActive="100"
+            maxIdle="30"
+            maxWait="10000"
+            username="modificatore" password="M.odificatore"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/FERSA?autoReconnect=true"
+    />
+</Context>
