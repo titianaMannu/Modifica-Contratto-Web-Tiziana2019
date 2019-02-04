@@ -2,14 +2,12 @@ package entity.modification;
 
 public class ModificationFactory {
 
-    private static ModificationFactory ourInstance = null;
+    private static ModificationFactory ourInstance = new ModificationFactory();
 
     /**
      * using singleton pattern to obtain the only one factory
      */
-    public static synchronized ModificationFactory getInstance() {
-        if (ourInstance == null)
-            ourInstance = new ModificationFactory();
+    public static ModificationFactory getInstance() {
         return ourInstance;
     }
 
