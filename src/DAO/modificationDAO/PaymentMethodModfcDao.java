@@ -16,15 +16,13 @@ import java.util.List;
 
 public class PaymentMethodModfcDao extends RequestForModificationDao {
 
-    private static PaymentMethodModfcDao ourInstance = null;
+    private static PaymentMethodModfcDao ourInstance = new PaymentMethodModfcDao();
 
     private PaymentMethodModfcDao() {
         // default constructor must be private because of we are using singleton pattern
     }
 
     public static synchronized PaymentMethodModfcDao getInstance(){
-        if (ourInstance == null)
-            ourInstance = new PaymentMethodModfcDao();
         return ourInstance;
     }
 

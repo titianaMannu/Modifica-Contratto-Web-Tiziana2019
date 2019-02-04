@@ -18,15 +18,13 @@ import java.util.List;
 
 public class AddServiceModfcDao extends RequestForModificationDao {
 
-    private static AddServiceModfcDao ourInstance = null;
+    private static AddServiceModfcDao ourInstance = new AddServiceModfcDao();
 
     private AddServiceModfcDao() {
         // default constructor must be private because of we are using singleton pattern
     }
 
     public static synchronized AddServiceModfcDao getInstance(){
-        if (ourInstance == null )
-            ourInstance = new AddServiceModfcDao();
         return ourInstance;
     }
 

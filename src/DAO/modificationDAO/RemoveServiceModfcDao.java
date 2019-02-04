@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RemoveServiceModfcDao extends RequestForModificationDao {
 
-    private static RemoveServiceModfcDao ourInstance = null;
+    private static RemoveServiceModfcDao ourInstance = new RemoveServiceModfcDao();
 
 
     private RemoveServiceModfcDao() {
@@ -25,8 +25,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
     }
 
     public static synchronized RemoveServiceModfcDao getInstance(){
-        if (ourInstance == null)
-            ourInstance = new RemoveServiceModfcDao();
         return ourInstance;
     }
 

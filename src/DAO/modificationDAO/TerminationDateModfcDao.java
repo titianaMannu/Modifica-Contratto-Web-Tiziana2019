@@ -13,15 +13,13 @@ import java.util.List;
 
 public class TerminationDateModfcDao extends RequestForModificationDao {
 
-    private static TerminationDateModfcDao ourInstance = null;
+    private static TerminationDateModfcDao ourInstance =  new TerminationDateModfcDao();
 
     private TerminationDateModfcDao() {
         // default constructor must be private because of we are using singleton pattern
     }
 
     public static synchronized TerminationDateModfcDao getInstance(){
-        if (ourInstance == null)
-            ourInstance = new TerminationDateModfcDao();
         return ourInstance;
     }
 

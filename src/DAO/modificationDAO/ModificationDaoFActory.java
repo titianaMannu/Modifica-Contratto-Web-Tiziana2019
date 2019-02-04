@@ -3,11 +3,9 @@ import entity.modification.*;
 
 public class ModificationDaoFActory {
 
-    private static ModificationDaoFActory ourInstance = null;
+    private static ModificationDaoFActory ourInstance = new ModificationDaoFActory();
 
     public static synchronized  ModificationDaoFActory getInstance() {
-        if (ourInstance == null)
-            ourInstance = new ModificationDaoFActory();
         return ourInstance;
     }
 
