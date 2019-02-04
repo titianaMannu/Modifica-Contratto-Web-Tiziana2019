@@ -32,18 +32,17 @@
                         out.print("</th><td>");
 
                         out.print(infoBean.getRequests().size());
-                        out.print("</td><td>");
+                        out.print("</td>");
 
                         if (infoBean.getRequests().size() > 0)
-                             out.print("<a name=\"reply\" class=\"btn btn-primary\" href=\"../controlPage/GetContractInfo.jsp?contractId=" +
-                                     + infoBean.getContract().getContractId() +"&user=" + contractInfoList.getUserNickName()+"\" role=\"button\">" +
-                                     "Rispondi</a>");
-                        out.print("</td><td>");
-                        out.print("<a name=\"make\" class=\"btn btn-primary\" href=\"../controlPage/GetContractInfo.jsp?contractId=" +
-                                + infoBean.getContract().getContractId() +"&user=" + contractInfoList.getUserNickName()+
-                                "\" role=\"button\">" +
-                                "Gestisci Richieste di modifica</a>");
+                            %>
+                <th scope="row">
+                <a  class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%= infoBean.getContract().getContractId()%>&user=<%=contractInfoList.getUserNickName()%>&btnName=reply" role="button">
+                Rispondi</a></th>
 
+                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%= infoBean.getContract().getContractId()%>&user=<%=contractInfoList.getUserNickName()%>&btnName=make" role="button">
+                    Gestisci Richieste di modifiche</a></th>
+                <%
                         out.print("</td><td>");
                         out.print("<a class=\"btn btn-primary\" href=\"#?index=" +
                                 + infoBean.getContract().getContractId() +"\" role=\"button\">" +
@@ -54,6 +53,7 @@
             </tr>
         </tbody>
     </table>
+<a href="../viewPage/LoginPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">LogOut</a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
 </body>

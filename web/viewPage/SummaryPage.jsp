@@ -57,6 +57,7 @@
 <form action="../controlPage/GetContractInfo.jsp">
      <input type="hidden" name="user" value="${contractInfo.userNickname}"/>
      <input type="hidden" name="contractId" value="<%=contractInfo.getContract().getContractId()%>"/>
+    <input type="hidden" name="btnName" value="make">
     <input type="submit" value="Torna alla Pagina di Gestione Modifiche">
 </form>
  <form action="../controlPage/GetAllContractsInfo.jsp">

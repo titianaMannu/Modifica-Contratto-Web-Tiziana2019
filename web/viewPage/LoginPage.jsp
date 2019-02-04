@@ -15,7 +15,7 @@
   </h1>
 
   <form action="../controlPage/GetAllContractsInfo.jsp">
-    <input type="text" name="userNickname">
+    <input type="text" name="userNickname" required>
   <div class="input-group mb-3" >
     <div class="input-group-append" >
       <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Login</button>
