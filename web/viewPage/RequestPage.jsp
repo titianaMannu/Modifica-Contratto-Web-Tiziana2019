@@ -4,10 +4,6 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="Beans.OptionalService" %>
 
-<jsp:useBean id="contractInfo"
-             class="Beans.ContractInfoBean"
-             scope="session"/>
-
 <jsp:useBean id="msg"
              class="Beans.ErrorMsg"
              scope="request"/>
@@ -15,6 +11,11 @@
 <jsp:useBean id="requestBean"
              class="Beans.RequestBean"
              scope="session"/>
+
+<jsp:useBean id="RequestModel"
+             class="Beans.RequestModelBean"
+             scope="session"/>
+
 
 <html>
 <head>
@@ -29,7 +30,7 @@
         String valoreSelect = request.getParameter("objectToChange");
                 // Effettuo il redirect alla pagina di destinazione
     %>
-        <jsp:setProperty name="requestBean" property="sender" value="${contractInfo.userNickname}"/>
+        <jsp:setProperty name="requestBean" property="sender" value="${RequestModel.model.userNickname}"/>
        <jsp:setProperty name="requestBean" property="type" value="<%=TypeOfModification.CHANGE_PAYMENTMETHOD%>"/>
         <jsp:setProperty name="requestBean" property="objectToChange" value="<%=TypeOfPayment.getType(valoreSelect)%>"/>
      <%
@@ -41,7 +42,7 @@
     else if (request.getParameter("TerminationDateBtn") != null){ //data di scadenza
         String valoreSelect = request.getParameter("data");
      %>
-        <jsp:setProperty name="requestBean" property="sender" value="${contractInfo.userNickname}"/>
+        <jsp:setProperty name="requestBean" property="sender" value="${RequestModel.model.userNickname}"/>
         <jsp:setProperty name="requestBean" property="type" value="<%=TypeOfModification.CHANGE_TERMINATIONDATE%>"/>
         <jsp:setProperty name="requestBean" property="objectToChange" value="<%=LocalDate.parse(valoreSelect)%>"/>
         <%
@@ -53,13 +54,13 @@
         String valoreSelect = request.getParameter("serviceId");
         OptionalService service = new OptionalService();
         service.setServiceId(Integer.parseInt(valoreSelect));
-        for (OptionalService item : contractInfo.getContract().getServiceList())
+        for (OptionalService item : RequestModel.getModel().getContract().getServiceList())
             if (item.equals(service)){
                 service = item;
                 break;
             }
             %>
-            <jsp:setProperty name="requestBean" property="sender" value="${contractInfo.userNickname}"/>
+            <jsp:setProperty name="requestBean" property="sender" value="${RequestModel.model.userNickname}"/>
             <jsp:setProperty name="requestBean" property="type" value="<%=TypeOfModification.REMOVE_SERVICE%>"/>
             <jsp:setProperty name="requestBean" property="objectToChange" value="<%=service%>"/>
             <%
@@ -80,7 +81,7 @@
         }
         if (service.isValid()){
     %>
-        <jsp:setProperty name="requestBean" property="sender" value="${contractInfo.userNickname}"/>
+        <jsp:setProperty name="requestBean" property="sender" value="${RequestModel.model.userNickname}"/>
         <jsp:setProperty name="requestBean" property="type" value="<%=TypeOfModification.ADD_SERVICE%>"/>
         <jsp:setProperty name="requestBean" property="objectToChange" value="<%=service%>"/>
     <%
@@ -103,10 +104,6 @@
     <!--
     todo controllo sui dati !
     -->
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-    </div>
-
     <table class="table table-sm">
         <thead>
         <tr>
@@ -118,41 +115,27 @@
         <tr>
             <th scope="row">Codice</th>
             <th scope="row">
-                <%
-                    out.print(contractInfo.getContract().getContractId());
-                %>
+                ${RequestModel.model.contract.contractId}
             </th>
         </tr>
         <tr>
             <th scope="row">Locatore</th>
-            <th scope="row"><%
-                out.print(contractInfo.getContract().getTenantNickname());
-            %></th>
+            <th scope="row">${RequestModel.model.contract.tenantNickname}</th>
         </tr>
         <tr>
             <th scope="row">Locatario</th>
-            <th scope="row"><%
-                out.print(contractInfo.getContract().getRenterNickname());
-            %></th>
+            <th scope="row">${RequestModel.model.contract.renterNickname}</th>
         </tr>
         <tr>
             <th scope="row">Prezzo lordo per rata</th>
-            <th scope="row"><%
-                out.print(contractInfo.getContract().getGrossPrice());
-            %></th>
+            <th scope="row">${RequestModel.model.contract.grossPrice}</th>
         </tr>
         <tr>
             <th scope="row">Prezzo netto per rata</th>
-            <th scope="row"><%
-                out.print(contractInfo.getContract().getNetPrice());
-            %></th>
+            <th scope="row">${RequestModel.model.contract.netPrice}</th>
         </tr>
         <tr>
-            <th scope="row">Pagamento ogni:
-            <%
-                out.print(contractInfo.getContract().getFrequencyOfPayment());
-            %></th><th scope="row">mesi</th>
-
+            <th scope="row">Pagamento ogni: ${RequestModel.model.contract.frequencyOfPayment}</th><th scope="row">mesi</th>
         </tr>
         <tr>
             <th scope="row">Metodo di pagamento</th>
@@ -163,7 +146,7 @@
                              Formatter f = new Formatter() ;
                              f.format("<option value=\"%s\" %s>%s</option>",
                                      payment.name(),
-                                     payment.name().equals(contractInfo.getContract().getPaymentMethod())
+                                     payment.name().equals(RequestModel.getModel().getContract().getPaymentMethod())
                                              ? "selected=\"selected\"" : "",
                                      payment.getDescription() ) ;
                              out.println(f.toString()) ;
@@ -174,15 +157,13 @@
              </form>
              </th>
         </tr>
-        <tr>
-            <th scope="row">Data Stipulazione</th>
-            <th>   <% out.print(contractInfo.getContract().getStipulationDate()); %></th>
-        </tr>
+        <tr><th scope="row">Data Stipulazione</th>
+            <th>${RequestModel.model.contract.stipulationDate}</th></tr>
         <tr>
             <th scope="row">Data Terminazione</th>
             <th scope="row"><form action="../viewPage/RequestPage.jsp" method="post">
                 <div><id></id></div>
-                <input type="date" name="data" value="<%=contractInfo.getContract().getTerminationDate()%>"/>
+                <input type="date" name="data" value="${RequestModel.model.contract.terminationDate}"/>
                 <input type="submit" name="TerminationDateBtn" value="Cambia"/>
             </form></th>
         </tr>
@@ -202,7 +183,7 @@
     </thead>
     <tbody>
     <%
-        for (OptionalService service : contractInfo.getContract().getServiceList()){%>
+        for (OptionalService service : RequestModel.getModel().getContract().getServiceList()){%>
     <tr><form action="../viewPage/RequestPage.jsp" method="post">
         <th scope="row"><%=service.getServiceId()%></th>
         <th scope="row"><%=service.getServiceName()%></th>
@@ -237,6 +218,7 @@
     </tbody>
 </table>
 <a href="../controlPage/GetRequests.jsp" class="btn btn-primary" role="button" aria-disabled="true">Riepilogo</a>
+<a href="../viewPage/ContractManagementPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">Torna alla pagina iniziale</a>
 
 </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

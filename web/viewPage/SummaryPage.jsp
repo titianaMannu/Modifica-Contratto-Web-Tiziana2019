@@ -2,13 +2,17 @@
 <%@ page import="entity.request.RequestStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="contractInfo"
-             class="Beans.ContractInfoBean"
+<jsp:useBean id="RequestModel"
+             class="Beans.RequestModelBean"
+             scope="session"/>
+
+<jsp:useBean id="RequestList"
+             class="Beans.RequestListBean"
              scope="session"/>
 
 <jsp:useBean id="msg"
              class="Beans.ErrorMsg"
-             scope="request"/>
+             scope="session"/>
 
 <html>
 <head>
@@ -17,6 +21,8 @@
     <link rel="stylesheet" href="../bootstrap-4.2.1-dist/css/bootstrap-grid.css">
 </head>
 <body>
+
+
  <table class="table table-striped table-dark">
     <thead>
     <tr>
@@ -30,7 +36,7 @@
     </thead>
     <tbody>
         <%
-            for (RequestBean requestBean : contractInfo.getRequests()){
+            for (RequestBean requestBean : RequestList.getList()){
                 %>
                     <tr><form action="../controlPage/deleteRequest.jsp">
                         <th scope="row"><%=requestBean.getType().getDescription()%></th>
@@ -55,13 +61,12 @@
     </tbody>
 </table>
 <form action="../controlPage/GetContractInfo.jsp">
-     <input type="hidden" name="user" value="${contractInfo.userNickname}"/>
-     <input type="hidden" name="contractId" value="<%=contractInfo.getContract().getContractId()%>"/>
+     <input type="hidden" name="contractId" value="${RequestModel.model.contract.contractId}"/>
     <input type="hidden" name="btnName" value="make">
     <input type="submit" value="Torna alla Pagina di Gestione Modifiche">
 </form>
- <form action="../controlPage/GetAllContractsInfo.jsp">
-     <input type="hidden" name="userNickname" value="${contractInfo.userNickname}">
+ <form action="../viewPage/ContractManagementPage.jsp">
+     <input type="hidden" name="userNickname" value="${RequestModel.model.userNickname}">
      <input type="submit" value="Torna alla pagina iniziale">
  </form>
 

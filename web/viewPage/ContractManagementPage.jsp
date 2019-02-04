@@ -1,10 +1,27 @@
-<%@ page import="Beans.ContractInfoBean" %>
+<%@ page import="Beans.ActiveContract" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
 
+<jsp:useBean id="InitModel"
+             class="Beans.InitModelBean"
+             scope="session"/>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="contractInfoList"
-             class="Beans.ContractInfoBeanList"
-             scope="request"/>
+<jsp:useBean id="RequestModel"
+             class="Beans.RequestModelBean"
+             scope="session"/>
+
+<jsp:useBean id="SubmitModel"
+             class="Beans.SubmitModelBean"
+             scope="session"/>
+
+<%
+
+    String usr = request.getParameter("user");
+    if ( usr != null){
+       InitModel.setUser(usr);
+       RequestModel.setUser(usr);
+       SubmitModel.setUser(usr);
+    }
+%>
 
 <html>
 <head>
@@ -26,30 +43,26 @@
         <tbody>
             <tr>
                 <%
-                    for (ContractInfoBean infoBean : contractInfoList.getContractInfoBeans() ){
+                    for (ActiveContract contract : InitModel.getModel().getAllContract()){
                         out.print("<th scope=\"row\">");
-                        out.print(infoBean.getContract().getContractId());
+                        out.print(contract.getContractId());
                         out.print("</th><td>");
 
-                        out.print(infoBean.getRequests().size());
+                        out.print(InitModel.getModel().getSubmits(contract));
                         out.print("</td>");
 
-                        if (infoBean.getRequests().size() > 0)
+                        if (InitModel.getModel().getSubmits(contract) > 0)
                             %>
                 <th scope="row">
-                <a  class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%= infoBean.getContract().getContractId()%>&user=<%=contractInfoList.getUserNickName()%>&btnName=reply" role="button">
+                <a  class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&btnName=reply" role="button">
                 Rispondi</a></th>
 
-                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%= infoBean.getContract().getContractId()%>&user=<%=contractInfoList.getUserNickName()%>&btnName=make" role="button">
+                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&btnName=make" role="button">
                     Gestisci Richieste di modifiche</a></th>
-                <%
-                        out.print("</td><td>");
-                        out.print("<a class=\"btn btn-primary\" href=\"#?index=" +
-                                + infoBean.getContract().getContractId() +"\" role=\"button\">" +
-                                "Rinnova</a>");
-                        out.print("</td><td>");
-                    }
-                %>
+
+                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&user=${InitModel.model.userNickname}&btnName=renew" role="button">
+                    Rinnova</a></th>
+                <%}%>
             </tr>
         </tbody>
     </table>

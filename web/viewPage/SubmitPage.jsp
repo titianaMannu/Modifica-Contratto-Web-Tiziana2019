@@ -1,13 +1,17 @@
 <%@ page import="Beans.RequestBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="contractInfo"
-             class="Beans.ContractInfoBean"
-             scope="session"/>
-
 <jsp:useBean id="msg"
              class="Beans.ErrorMsg"
-             scope="request"/>
+             scope="session"/>
+
+<jsp:useBean id="SubmitModel"
+             class="Beans.SubmitModelBean"
+             scope="session"/>
+
+<jsp:useBean id="RequestList"
+             class="Beans.RequestListBean"
+             scope="session"/>
 
 <html>
 <head>
@@ -29,7 +33,7 @@
     </thead>
     <tbody>
     <%
-        for (RequestBean requestBean : contractInfo.getRequests()){
+        for (RequestBean requestBean : RequestList.getList()){
     %>
     <tr>
         <th scope="row"><%=requestBean.getType().getDescription()%></th>
@@ -48,8 +52,8 @@
     %>
     </tbody>
 </table>
-<form action="../controlPage/GetAllContractsInfo.jsp">
-    <input type="hidden" name="userNickname" value="${contractInfo.userNickname}">
+<form action="../viewPage/ContractManagementPage.jsp">
+    <input type="hidden" name="userNickname" value="${SubmitModel.model.userNickname}">
     <input type="submit" value="Torna alla pagina iniziale">
 </form>
 
