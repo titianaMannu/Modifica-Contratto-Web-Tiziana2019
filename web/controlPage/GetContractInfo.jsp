@@ -27,8 +27,9 @@
     else
         contractInfo.setContract(activeContract);
 
-    if (request.getParameter("reply") != null)
-        %> <jsp:forward page="../controlPage/GetSubmits.jsp"/><%
+    if (request.getParameter("btnName").equals("reply")){
+        %> <jsp:forward page="../controlPage/GetSubmits.jsp"/><%}
+
 %>
 
 
