@@ -36,4 +36,8 @@ public class RequestListBean {
     public void setList(List<RequestBean> list) {
         this.list = list;
     }
+
+    public boolean isEmpty(){
+        return list.isEmpty();
+    }
 }
