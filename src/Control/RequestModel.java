@@ -24,11 +24,10 @@ import java.util.List;
 
 public class RequestModel {
     private String userNickname = "";
-    private ActiveContract activeContract;
+    private ActiveContract activeContract = null;
 
-    public RequestModel(String userNickname, int contractId) {
-        setUserNickname(userNickname);
-        setActiveContract(contractId);
+
+    public RequestModel() {
     }
 
     public ActiveContract getContract(){

@@ -26,13 +26,15 @@ public class SubmitModel {
     private String userNickname;
     private ActiveContract activeContract;
 
-    public SubmitModel(String userNickname, int contractId) {
-        setUserNickname(userNickname);
-        setActiveContract(contractId);
+    public SubmitModel() {
     }
 
-    public ActiveContract getContract(int contractId){
+    public ActiveContract getContract(){
         return activeContract;
+    }
+
+    public String getUserNickname() {
+        return userNickname;
     }
 
     public ErrorMsg setUserNickname(String userNickname) {
