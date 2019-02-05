@@ -48,16 +48,17 @@ public class RequestModel {
     }
 
     public ErrorMsg setActiveContract(int contractId) {
+        activeContract = null;
         ErrorMsg msg = new ErrorMsg();
         ContractDao dao = ContractDao.getInstance();
-        ActiveContract activeContract = dao.getContract(contractId);
-        if (activeContract == null)
+        ActiveContract contract = dao.getContract(contractId);
+        if (contract == null)
             msg.addMsg("Il contratto selezionato non è stato trovato\nPotrebbe non essere più attivo\n");
-        else if (!(activeContract.getRenterNickname().equals(userNickname) ||
-                activeContract.getTenantNickname().equals(userNickname)) )
+        else if (!(contract.getRenterNickname().equals(userNickname) ||
+                contract.getTenantNickname().equals(userNickname)) )
             msg.addMsg("UserName e/o codice contratto non compatibili\n");
         else
-            this.activeContract = activeContract;
+            this.activeContract = contract;
         return msg;
     }
 

@@ -70,9 +70,8 @@ public class RequestControllerBean {
         msg.addAllMsg(model.deleteRequest(request));
     }
 
-    public void flushInfo(){
-
-
+    public void destroy(){
+       model = new RequestModel();
     }
 
 }

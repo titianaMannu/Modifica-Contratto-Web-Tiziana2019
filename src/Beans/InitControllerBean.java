@@ -39,4 +39,8 @@ public class InitControllerBean implements Serializable {
     public int getSubmitsNumber(ActiveContract contract){
         return model.getSubmits(contract);
     }
+
+    public void destroy(){
+      model = new InitModel();
+    }
 }

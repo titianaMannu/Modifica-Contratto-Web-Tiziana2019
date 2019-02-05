@@ -63,4 +63,8 @@ public class SubmitControllerBean implements Serializable {
     public void decline(RequestBean request){
         msg.addAllMsg(model.decline(request));
     }
+
+    public void destroy(){
+        model = new SubmitModel();
+    }
 }
