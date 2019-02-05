@@ -21,7 +21,9 @@
              scope="session"/>
 
 
-
+<!--
+todo formattare meglio i messaggi di errore
+-->
 <html>
 <head>
     <title>Alert</title>
@@ -34,7 +36,9 @@
         if (InitSession == null ){
     %><div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Errore!</h4>
-        <p>Tornare alla pagina iniziale o rieffettuare il login</p><%
+        <p>
+            Tornare alla pagina iniziale o rieffettuare il login
+        </p><%
         }
     else if ( !InitSession.isValid()){
     %><div class="alert alert-success" role="alert">
@@ -43,9 +47,7 @@
             for (String s : InitSession.getMsg().getMsgList()){
             out.println(s);
             }%></p>
-    </div>
-        <a href="../viewPage/LoginPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">LogOut</a>
-            <%}
+    </div><%}
         else if (RequestSession == null ){
             %><div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Errore!</h4>
@@ -67,7 +69,9 @@
         else if (SubmitSession == null ){
             %><div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Errore!</h4>
-                <p>Tornare alla pagina iniziale o rieffettuare il login</p><%
+                <p>
+                    Tornare alla pagina iniziale o rieffettuare il login
+                </p><%
         }
         else if (!SubmitSession.isValid()){
             %><div class="alert alert-success" role="alert">

@@ -11,9 +11,14 @@
              class="Beans.RequestListBean"
              scope="session"/>
 
-<!--
-todo alert caso in cui non ci sono richieste
--->
+
+<%
+    RequestSession.getMsg().clear();
+    if (RequestList.getList().isEmpty()){
+        RequestSession.getMsg().addMsg("Non hai ancora fatto richieste\n");
+%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+    }
+%>
 
 <html>
 <head>
@@ -22,8 +27,6 @@ todo alert caso in cui non ci sono richieste
     <link rel="stylesheet" href="../bootstrap-4.2.1-dist/css/bootstrap-grid.css">
 </head>
 <body>
-
-
  <table class="table table-striped table-dark">
     <thead>
     <tr>

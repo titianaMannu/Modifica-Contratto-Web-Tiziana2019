@@ -19,7 +19,11 @@
 <jsp:useBean id="SubmitSession"
              class="Beans.SubmitControllerBean"
              scope="session"/>
-
+<%
+RequestSession.destroy();
+SubmitSession.destroy();
+InitSession.destroy();
+%>
 <html>
   <head>
     <title>$Login Page$</title>

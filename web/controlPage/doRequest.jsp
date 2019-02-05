@@ -10,6 +10,7 @@
 
 
 <%
+    RequestSession.getMsg().clear();
     RequestSession.doSend(requestBean);
     if (!RequestSession.isValid()){
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
