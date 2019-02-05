@@ -1,10 +1,8 @@
 <%@ page import="Beans.RequestBean" %>
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="session"/>
 
-<jsp:useBean id="SubmitModel"
-             class="Beans.SubmitModelBean"
+
+<jsp:useBean id="SubmitSession"
+             class="Beans.SubmitControllerBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
@@ -22,16 +20,17 @@
         }
     }
 
-    msg.clear();
-    msg.addAllMsg(SubmitModel.getModel().decline(requestBean));
 
-    if (msg.isErr()){
-%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
-}else{
-%><jsp:forward page="../controlPage/GetContractInfo.jsp">
-    <jsp:param name="btnName" value="reply"/>
-    <jsp:param name="contractId" value="${SubmitModel.model.contract.contractId}"/>
-</jsp:forward><%
+    SubmitSession.getMsg().clear();
+    SubmitSession.decline(requestBean);
+
+    if (!SubmitSession.isValid()){
+        %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+        }else{
+        %><jsp:forward page="../controlPage/GetContractInfo.jsp">
+            <jsp:param name="btnName" value="reply"/>
+            <jsp:param name="contractId" value="${SubmitSession.contract.contractId}"/>
+        </jsp:forward><%
 
     }
 %>

@@ -1,11 +1,9 @@
 
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="request"/>
 
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
+
 
 <jsp:useBean id="RequestList"
              class="Beans.RequestListBean"
@@ -13,6 +11,11 @@
 
 <%
     RequestList.clear();
-    RequestList.addAll(RequestModel.getModel().getAllRequests());
+    RequestSession.getMsg().clear();
+    RequestList.addAll(RequestSession.getMyRequest());
+    if(RequestList.isEmpty()){
+        RequestSession.getMsg().addMsg("Non hai ancora fatto richieste\n");
+        %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+    }
 %>
 <jsp:forward page="../viewPage/SummaryPage.jsp"/>

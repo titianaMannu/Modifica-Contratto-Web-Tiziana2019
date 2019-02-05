@@ -4,19 +4,14 @@
              class="Beans.RequestBean"
              scope="session"/>
 
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="request"/>
-
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
 
 
 <%
-    msg.clear();
-    msg.addAllMsg(RequestModel.getModel().insertRequest(requestBean));  
-    if (msg.isErr()){
+    RequestSession.doSend(requestBean);
+    if (!RequestSession.isValid()){
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }
     else {

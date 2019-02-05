@@ -1,19 +1,15 @@
 <%@ page import="Beans.RequestBean" %>
 
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
              class="Beans.RequestListBean"
              scope="session"/>
 
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="session"/>
-
 <%
-    msg.clear();
+   RequestSession.getMsg().clear();
     int id = Integer.parseInt(request.getParameter("toDelete"));
     RequestBean requestBean = null;
     for (RequestBean item : RequestList.getList()){
@@ -24,11 +20,14 @@
     }
 
     if (requestBean == null){
-        msg.addMsg("Operazione fallita, la richiesta non è più valida\n");
+        RequestSession.getMsg().addMsg("Operazione fallita, la richiesta non è più valida\n");
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }
     else{
-        msg.addAllMsg(RequestModel.getModel().deleteRequest(requestBean));
+       RequestSession.deleteRequest(requestBean);
+       if(!RequestSession.isValid()){
+        %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+       }
     }
 
 %>
