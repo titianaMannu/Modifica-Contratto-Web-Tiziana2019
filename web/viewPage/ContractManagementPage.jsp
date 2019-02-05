@@ -1,25 +1,30 @@
 <%@ page import="Beans.ActiveContract" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="InitModel"
-             class="Beans.InitModelBean"
+<jsp:useBean id="InitSession"
+             class="Beans.InitControllerBean"
              scope="session"/>
 
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
 
-<jsp:useBean id="SubmitModel"
-             class="Beans.SubmitModelBean"
+
+
+<jsp:useBean id="SubmitSession"
+             class="Beans.SubmitControllerBean"
              scope="session"/>
 
 <%
-
+    InitSession.getMsg().clear();
+    RequestSession.getMsg().clear();
+    SubmitSession.getMsg().clear();
     String usr = request.getParameter("user");
     if ( usr != null){
-       InitModel.setUser(usr);
-       RequestModel.setUser(usr);
-       SubmitModel.setUser(usr);
+        InitSession.setUserNickName(usr);
+       RequestSession.setUserNickName(usr);
+       SubmitSession.setUserNickName(usr);
     }
 %>
 
@@ -43,26 +48,34 @@
         <tbody>
             <tr>
                 <%
-                    for (ActiveContract contract : InitModel.getModel().getAllContract()){
+                    List<ActiveContract> list = InitSession.getAllContract();
+                    if (list.isEmpty()){
+                        InitSession.getMsg().addMsg("Non ci sono contratti da mostrare!\n");
+                        %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+                }
+                    for (ActiveContract contract : list){
                         out.print("<th scope=\"row\">");
                         out.print(contract.getContractId());
                         out.print("</th><td>");
 
-                        out.print(InitModel.getModel().getSubmits(contract));
+                        out.print(InitSession.getSubmitsNumber(contract));
                         out.print("</td>");
 
-                        if (InitModel.getModel().getSubmits(contract) > 0)
+                        if ( InitSession.getSubmitsNumber(contract) > 0){
                             %>
                 <th scope="row">
                 <a  class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&btnName=reply" role="button">
                 Rispondi</a></th>
+                <%}else{ %>
+                    <th scope="row"></th>
+                <%}%>
 
                 <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&btnName=make" role="button">
                     Gestisci Richieste di modifiche</a></th>
 
-                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&user=${InitModel.model.userNickname}&btnName=renew" role="button">
+                <th scope="row"><a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=contract.getContractId()%>&user=${InitSession.userNickName}&btnName=renew" role="button">
                     Rinnova</a></th>
-                <%}%>
+                    <%}%>
             </tr>
         </tbody>
     </table>

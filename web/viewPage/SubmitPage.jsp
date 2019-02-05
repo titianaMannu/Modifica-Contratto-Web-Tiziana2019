@@ -1,18 +1,26 @@
 <%@ page import="Beans.RequestBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="session"/>
 
-<jsp:useBean id="SubmitModel"
-             class="Beans.SubmitModelBean"
+<jsp:useBean id="SubmitSession"
+             class="Beans.SubmitControllerBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
              class="Beans.RequestListBean"
              scope="session"/>
 
+<%
+
+    if (SubmitSession == null){
+%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+    }
+   else  if ( !SubmitSession.isValid() ){
+%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+    }
+   else
+    SubmitSession.getMsg().clear();
+%>
 <html>
 <head>
     <title>Riepilogo</title>
@@ -33,6 +41,10 @@
     </thead>
     <tbody>
     <%
+        if(RequestList.isEmpty()){
+            SubmitSession.getMsg().addMsg("Non ci sono richieste per te\n");
+            %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
+        }
         for (RequestBean requestBean : RequestList.getList()){
     %>
     <tr>
@@ -53,7 +65,7 @@
     </tbody>
 </table>
 <form action="../viewPage/ContractManagementPage.jsp">
-    <input type="hidden" name="userNickname" value="${SubmitModel.model.userNickname}">
+    <input type="hidden" name="userNickname" value="${SubmitSession.userNickName}">
     <input type="submit" value="Torna alla pagina iniziale">
 </form>
 

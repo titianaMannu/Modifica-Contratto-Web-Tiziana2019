@@ -2,17 +2,18 @@
 <%@ page import="entity.request.RequestStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
              class="Beans.RequestListBean"
              scope="session"/>
 
-<jsp:useBean id="msg"
-             class="Beans.ErrorMsg"
-             scope="session"/>
+<!--
+todo alert caso in cui non ci sono richieste
+-->
 
 <html>
 <head>
@@ -61,12 +62,12 @@
     </tbody>
 </table>
 <form action="../controlPage/GetContractInfo.jsp">
-     <input type="hidden" name="contractId" value="${RequestModel.model.contract.contractId}"/>
+     <input type="hidden" name="contractId" value="${RequestSession.contract.contractId}"/>
     <input type="hidden" name="btnName" value="make">
     <input type="submit" value="Torna alla Pagina di Gestione Modifiche">
 </form>
  <form action="../viewPage/ContractManagementPage.jsp">
-     <input type="hidden" name="userNickname" value="${RequestModel.model.userNickname}">
+     <input type="hidden" name="userNickname" value="${RequestSession.userNickName}">
      <input type="submit" value="Torna alla pagina iniziale">
  </form>
 

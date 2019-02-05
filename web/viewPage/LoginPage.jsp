@@ -7,16 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="InitModel"
-             class="Beans.InitModelBean"
+<jsp:useBean id="InitSession"
+             class="Beans.InitControllerBean"
              scope="session"/>
 
-<jsp:useBean id="RequestModel"
-             class="Beans.RequestModelBean"
+<jsp:useBean id="RequestSession"
+             class="Beans.RequestControllerBean"
              scope="session"/>
 
-<jsp:useBean id="SubmitModel"
-             class="Beans.SubmitModelBean"
+
+<jsp:useBean id="SubmitSession"
+             class="Beans.SubmitControllerBean"
              scope="session"/>
 
 <html>
