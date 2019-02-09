@@ -1,10 +1,10 @@
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestControllerBean"
+             class="Beans.RequestSessionBean"
              scope="session"/>
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitControllerBean"
+             class="Beans.SubmitSessionBean"
              scope="session"/>
 
 
@@ -12,10 +12,10 @@
     RequestSession.getMsg().clear();
     SubmitSession.getMsg().clear();
     int contractId = Integer.parseInt(request.getParameter("contractId"));
+    //assegno il contratto ai bean di sessione
     RequestSession.setContractId(contractId);
     SubmitSession.setContractId(contractId);
     if (request.getParameter("btnName").equals("make")){
-       RequestSession.setContractId(contractId);
             %> <jsp:forward page="../viewPage/RequestPage.jsp"/><%
     }
     else if (request.getParameter("btnName").equals("reply")){
