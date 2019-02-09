@@ -1,28 +1,24 @@
 package Beans;
 
-import Control.RequestModel;
+import Control.SubmitModel;
+import entity.ActiveContract;
 
+import java.io.Serializable;
 import java.util.List;
 
-
-public class RequestControllerBean {
-
-    private String userNickName;
+public class SubmitSessionBean implements Serializable {
+    private SubmitModel model;
     private int contractId;
-    private RequestModel model;
+    private String userNickName;
     private ErrorMsg msg;
 
-    //costruttore di default inizializza attributi con valori non significativi
-    public RequestControllerBean() {
-        model = new RequestModel();
+
+    public SubmitSessionBean() {
         userNickName = "";
         contractId = -1;
-        msg= new ErrorMsg();
+        model= new SubmitModel();
+        msg = new ErrorMsg();
     }
-
-  /*  public RequestModel getModel() {
-        return model;
-    }*/
 
     public String getUserNickName() {
         return userNickName;
@@ -53,25 +49,25 @@ public class RequestControllerBean {
         return !msg.isErr();
     }
 
-    public void doSend(RequestBean request){
-        msg.clear();
-        msg.addAllMsg(model.insertRequest(request));
-    }
-
     public ActiveContract getContract(){
         return model.getContract();
     }
 
-    public List<RequestBean> getMyRequest(){
-        return  model.getAllRequests();
+    public List<RequestBean> getMySubmits(){
+        return model.getSubmits();
     }
 
-    public void deleteRequest(RequestBean request){
-        msg.addAllMsg(model.deleteRequest(request));
+    public void accept(RequestBean request){
+        msg.clear();
+        msg.addAllMsg(model.accept(request));
+    }
+
+    public void decline(RequestBean request){
+        msg.clear();
+        msg.addAllMsg(model.decline(request));
     }
 
     public void destroy(){
-       model = new RequestModel();
+        model = new SubmitModel();
     }
-
 }

@@ -1,16 +1,17 @@
 package Beans;
 
 import Control.InitModel;
+import entity.ActiveContract;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class InitControllerBean implements Serializable {
+public class InitSessionBean implements Serializable {
     private String userNickName;
     private InitModel model;
     private ErrorMsg msg;
 
-    public InitControllerBean() {
+    public InitSessionBean() {
         userNickName = "";
         model = new InitModel();
         msg = new ErrorMsg();
