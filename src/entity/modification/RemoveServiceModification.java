@@ -1,6 +1,6 @@
 package entity.modification;
-import Beans.ActiveContract;
-import Beans.OptionalService;
+import entity.ActiveContract;
+import entity.OptionalService;
 
 import java.util.List;
 
