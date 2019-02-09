@@ -2,15 +2,18 @@
 <%@ page import="entity.modification.TypeOfModification" %>
 <%@ page import="java.util.Formatter" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="Beans.OptionalService" %>
+<%@ page import="entity.OptionalService" %>
+<%@ page import="Beans.OptionalServiceBean" %>
 <jsp:useBean id="requestBean"
              class="Beans.RequestBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestControllerBean"
+             class="Beans.RequestSessionBean"
              scope="session"/>
-
+<!--
+todo ricaricare la pagina GetContractInfo periodicamente per avere info sempre aggiornate !!!
+-->
 
 <%
 
@@ -59,10 +62,9 @@
 
     else if (request.getParameter("DeleteServiceBtn") != null){ //rimozione servizio
         String valoreSelect = request.getParameter("serviceId");
-        OptionalService service = new OptionalService();
-        service.setServiceId(Integer.parseInt(valoreSelect));
+        OptionalService service = null;
         for (OptionalService item : RequestSession.getContract().getServiceList())
-            if (item.equals(service)){
+            if (item.getServiceId() == Integer.parseInt(valoreSelect)){
                 service = item;
                 break;
             }
@@ -77,14 +79,14 @@
         }
 
     else if (request.getParameter("AddServiceBtn") != null){ //aggiunta servizio
-        OptionalService service;
+        OptionalServiceBean service;
         int price = 0;
         try {
             price = Integer.parseInt(request.getParameter("servicePrice"));
         } catch(NumberFormatException e){
             e.printStackTrace();
         }finally {
-            service = new OptionalService(request.getParameter("serviceName"), price, request.getParameter("serviceDescription"));
+            service = new OptionalServiceBean(request.getParameter("serviceName"), price, request.getParameter("serviceDescription"));
         }
         if (service.isValid()){
     %>

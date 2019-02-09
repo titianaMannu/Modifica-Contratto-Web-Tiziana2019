@@ -7,17 +7,17 @@
 
 
 <jsp:useBean id="InitSession"
-             class="Beans.InitControllerBean"
+             class="Beans.InitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestControllerBean"
+             class="Beans.RequestSessionBean"
              scope="session"/>
 
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitControllerBean"
+             class="Beans.SubmitSessionBean"
              scope="session"/>
 
 

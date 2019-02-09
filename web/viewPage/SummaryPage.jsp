@@ -4,7 +4,7 @@
 
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestControllerBean"
+             class="Beans.RequestSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"

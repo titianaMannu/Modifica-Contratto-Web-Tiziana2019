@@ -3,7 +3,7 @@
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitControllerBean"
+             class="Beans.SubmitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"

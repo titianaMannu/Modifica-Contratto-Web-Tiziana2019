@@ -1,19 +1,19 @@
-<%@ page import="Beans.ActiveContract" %>
+<%@ page import="entity.ActiveContract" %>
 <%@ page import="java.util.List" %>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="InitSession"
-             class="Beans.InitControllerBean"
+             class="Beans.InitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestControllerBean"
+             class="Beans.RequestSessionBean"
              scope="session"/>
 
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitControllerBean"
+             class="Beans.SubmitSessionBean"
              scope="session"/>
 
 <%
@@ -45,15 +45,14 @@
             <th scope="col">Proponi rinnovo</th>
         </tr>
         </thead>
-        <tbody>
-            <tr>
-                <%
-                    List<ActiveContract> list = InitSession.getAllContract();
+        <tbody> <%
+                    List<ActiveContract> list = InitSession.getAllContract(); //lista di contratti in lettura
                     if (list.isEmpty()){
                         InitSession.getMsg().addMsg("Non ci sono contratti da mostrare!\n");
                         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
                 }
                     for (ActiveContract contract : list){
+                        %><tr><%
                         out.print("<th scope=\"row\">");
                         out.print(contract.getContractId());
                         out.print("</th><td>");
