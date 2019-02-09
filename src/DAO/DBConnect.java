@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class DBConnect {
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException{
+    public static Connection getConnection() throws SQLException{
         Connection conn = null;
         Context initContext;
         try {

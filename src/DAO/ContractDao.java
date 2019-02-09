@@ -1,7 +1,7 @@
 package DAO;
 
-import Beans.ActiveContract;
-import Beans.OptionalService;
+import entity.ActiveContract;
+import entity.OptionalService;
 import entity.TypeOfPayment;
 import entity.UserType;
 import java.sql.Connection;
@@ -49,10 +49,7 @@ public class ContractDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
-
         return activeContract;
     }
 
@@ -89,8 +86,6 @@ public class ContractDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return list;
     }
@@ -108,8 +103,6 @@ public class ContractDao {
                         res.getString("description")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return list;

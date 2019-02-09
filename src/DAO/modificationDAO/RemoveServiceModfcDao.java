@@ -1,8 +1,8 @@
 package DAO.modificationDAO;
 
-import Beans.ActiveContract;
 import Beans.RequestBean;
-import Beans.OptionalService;
+import entity.ActiveContract;
+import entity.OptionalService;
 import DAO.DBConnect;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
@@ -14,6 +14,8 @@ import entity.request.RequestStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+//import Beans.OptionalServiceBean;
 
 public class RemoveServiceModfcDao extends RequestForModificationDao {
 
@@ -71,8 +73,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
     }
@@ -116,8 +116,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
         }catch (SQLException e){
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -152,8 +150,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
         }catch (SQLException e){
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return true;
     }
@@ -182,8 +178,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
 
         }catch(SQLException e){
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -211,7 +205,7 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
                 //tipo di modifica è di tipo REMOVE_SERVICE  in questo caso
                 Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
                 if (modfc == null)
-                    throw new NullPointerException("modifica non trovata\n");
+                  continue;
 
                 RequestBean request = new RequestBean(TypeOfModification.REMOVE_SERVICE,
                         modfc.getObjectToChange(), res.getString("reasonWhy"), res.getDate("dateOfSubmission").toLocalDate(),
@@ -220,8 +214,6 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
                 list.add(request);
             }
         }catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -233,7 +225,7 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
      *@return una lista contenete tutte le richieste PENDING relative contrat e destinate a receiver
      */
     @Override
-    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver) throws NullPointerException {
+    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver){
             if (activeContract == null || receiver == null || receiver.isEmpty())
                 throw new NullPointerException("Specificare il contratto e il destinatario\n");
 
@@ -253,7 +245,7 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
                     //tipo di modifica è di tipo REMOVE_SERVICE  in questo caso
                     Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
                     if (modfc == null)
-                        throw new NullPointerException("tipo di richiesta e modifica non compatibili\n");
+                       continue;
 
                     RequestBean request = new RequestBean(TypeOfModification.REMOVE_SERVICE,
                             modfc.getObjectToChange(), res.getString("reasonWhy"), res.getDate("dateOfSubmission").toLocalDate(),
@@ -263,11 +255,9 @@ public class RemoveServiceModfcDao extends RequestForModificationDao {
                 }
             }catch (SQLException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
 
-        //ritorno ugualmente la lista
+            //ritorno ugualmente la lista
             return list;
 
     }

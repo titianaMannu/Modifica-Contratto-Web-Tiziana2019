@@ -1,8 +1,8 @@
 package DAO.modificationDAO;
 
-import Beans.ActiveContract;
 import Beans.RequestBean;
 import DAO.DBConnect;
+import entity.ActiveContract;
 import entity.TypeOfPayment;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
@@ -10,6 +10,7 @@ import entity.modification.PaymentMethodModification;
 import entity.modification.TypeOfModification;
 import entity.request.RequestForModification;
 import entity.request.RequestStatus;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -88,8 +87,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
             }finally {
                 stmt.execute("SET FOREIGN_KEY_CHECKS=1"); //riabilito il controllo delle FK
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -121,8 +118,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
         }catch (SQLException e){
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return true;
     }
@@ -145,8 +140,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
         return null;
@@ -157,7 +150,7 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
      @return : una lista contenete tutte le richieste  relative contrat e inviate da sender
      */
     @Override
-    public List<RequestBean> getRequests(ActiveContract activeContract, String sender) throws NullPointerException{
+    public List<RequestBean> getRequests(ActiveContract activeContract, String sender) {
         if (activeContract == null || sender == null || sender.isEmpty())
             throw new NullPointerException("Specificare il contratto e il mittente\n");
 
@@ -176,7 +169,7 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
                 //tipo di modifica è di tipo CHANGE_PAYMENTMETHOD in questo caso
                 Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
                 if (modfc == null)
-                    throw new NullPointerException("modifica non trovata\n");
+                    continue;
 
                 RequestBean request = new RequestBean(TypeOfModification.CHANGE_PAYMENTMETHOD,
                         modfc.getObjectToChange(), res.getString("reasonWhy"), res.getDate("dateOfSubmission").toLocalDate(),
@@ -185,8 +178,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
                 list.add(request);
             }
         }catch (SQLException  e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         //ritorno ugualmente la lista
@@ -197,7 +188,7 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
      *@return una lista contenete tutte le richieste  relative contrat e destinate a receiver
      */
     @Override
-    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver) throws NullPointerException {
+    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver) {
         if (activeContract == null || receiver == null || receiver.isEmpty())
             throw new NullPointerException("Specificare il contratto e il destinatario\n");
 
@@ -217,8 +208,7 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
                 //tipo di modifica è di tipo REMOVE_SERVICE  in questo caso
                 Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
                 if (modfc == null)
-                    throw new NullPointerException("tipo di richiesta e modifica non compatibili\n");
-
+                    continue;
                 RequestBean request = new RequestBean(TypeOfModification.CHANGE_PAYMENTMETHOD,
                         modfc.getObjectToChange(), res.getString("reasonWhy"), res.getDate("dateOfSubmission").toLocalDate(),
                         RequestStatus.PENDING, res.getInt("idRequest"), res.getString("senderNickname"));
@@ -226,8 +216,6 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
                 list.add(request);
             }
         }catch (SQLException  e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         //ritorno ugualmente la lista

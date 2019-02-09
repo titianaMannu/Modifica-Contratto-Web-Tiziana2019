@@ -1,11 +1,12 @@
 package DAO.modificationDAO;
 
-import Beans.ActiveContract;
 import Beans.RequestBean;
 import DAO.DBConnect;
+import entity.ActiveContract;
 import entity.modification.Modification;
 import entity.request.RequestForModification;
 import entity.request.RequestStatus;
+
 import java.sql.*;
 import java.util.List;
 
@@ -64,15 +65,13 @@ public abstract class RequestForModificationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
     /**
      @return : una lista contenete tutte le proposte relative a contrat e fatte da sender
      */
-    public abstract List<RequestBean> getRequests(ActiveContract activeContract, String sender) throws NullPointerException;
+    public abstract List<RequestBean> getRequests(ActiveContract activeContract, String sender);
 
     /**
      *@return una lista contenete tutte le richieste PENDING relative a contrat e destinate a receiver
@@ -120,8 +119,6 @@ public abstract class RequestForModificationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -141,8 +138,6 @@ public abstract class RequestForModificationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
     }
