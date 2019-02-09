@@ -1,12 +1,11 @@
 package entity.request;
 
-import Beans.ActiveContract;
+import entity.ActiveContract;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
 import entity.modification.TypeOfModification;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 
 public class RequestForModification {
@@ -50,6 +49,14 @@ public class RequestForModification {
         setSenderReceiver(sender, c);
         setStatus(status);
     }
+
+    /**
+     * valida la richiesta per il contratto
+     */
+    public boolean validate(){
+        return modification.validate(activeContract);
+    }
+
 
     public void setRequestId(int requestId)throws IllegalArgumentException {
         if (requestId < 1) throw new IllegalArgumentException("Specificare una richiesta esistente\n");
