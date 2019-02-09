@@ -1,6 +1,6 @@
 package Control;
 
-import Beans.ActiveContract;
+import entity.ActiveContract;
 import Beans.ErrorMsg;
 import Beans.RequestBean;
 import DAO.ContractDao;
@@ -88,9 +88,8 @@ public class SubmitModel {
                     requestBean.getReasonWhy(),requestBean.getDate(), requestBean.getStatus());
 
             RequestForModificationDao dao = ModificationDaoFActory.getInstance().createProduct(requestBean.getType());
-            dao.changeRequestStatus(request, RequestStatus.ACCEPTED);
             dao.updateContract(request);
-
+            dao.changeRequestStatus(request, RequestStatus.ACCEPTED);
         }catch(SQLException | NullPointerException e){
             msg.addMsg("Operazione non riuscita: " + e.getMessage());
 

@@ -1,6 +1,6 @@
 package Control;
 
-import Beans.ActiveContract;
+import entity.ActiveContract;
 import Beans.RequestBean;
 
 import DAO.ContractDao;
@@ -81,7 +81,7 @@ public class RequestModel {
             }
             RequestForModificationDao dao = ModificationDaoFActory.getInstance().createProduct(requestBean.getType());
             try {//prima di inserire una richiesta nel sistema ne fa la validazione
-                if ( !request.getModification().validate( request.getActiveContract() )){
+                if ( !request.validate() ){
                     msg.addMsg("Specificare una modifica significativa\n");
                     return msg;
                 }

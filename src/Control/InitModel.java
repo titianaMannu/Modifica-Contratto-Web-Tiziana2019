@@ -1,6 +1,6 @@
 package Control;
 
-import Beans.ActiveContract;
+import entity.ActiveContract;
 import Beans.ErrorMsg;
 import Beans.RequestBean;
 import DAO.ContractDao;
