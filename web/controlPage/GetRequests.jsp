@@ -1,12 +1,12 @@
 
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
 <%

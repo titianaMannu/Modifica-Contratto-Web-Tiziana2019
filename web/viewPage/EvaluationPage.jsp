@@ -1,21 +1,20 @@
-<%@ page import="Beans.RequestBean" %>
+<%@ page import="beans.RequestBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitSessionBean"
+             class="beans.SubmitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
+
+<meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=SubmitSession.getContractId()%>&btnName=reply">
 <%
 
-    if (SubmitSession == null){
-%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
-    }
-   else  if ( !SubmitSession.isValid() ){
+    if ( !SubmitSession.isValid() ){
 %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }
    else

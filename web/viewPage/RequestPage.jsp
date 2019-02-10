@@ -3,18 +3,19 @@
 <%@ page import="java.util.Formatter" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="entity.OptionalService" %>
-<%@ page import="Beans.OptionalServiceBean" %>
+<%@ page import="beans.OptionalServiceBean" %>
+
 <jsp:useBean id="requestBean"
-             class="Beans.RequestBean"
+             class="beans.RequestBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
-<!--
-todo ricaricare la pagina GetContractInfo periodicamente per avere info sempre aggiornate !!!
--->
 
+
+
+<meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContractId()%>&btnName=make">
 <%
 
     if (RequestSession == null ){
@@ -109,10 +110,6 @@ todo ricaricare la pagina GetContractInfo periodicamente per avere info sempre a
     <h1>Gestione Modifiche</h1>
 
     <h2>Dati Contrattuali</h2>
-
-    <!--
-    todo controllo sui dati !
-    -->
     <table class="table table-sm">
         <thead>
         <tr>
@@ -226,9 +223,13 @@ todo ricaricare la pagina GetContractInfo periodicamente per avere info sempre a
     </form></tr>
     </tbody>
 </table>
-<a href="../controlPage/GetRequests.jsp" class="btn btn-primary" role="button" aria-disabled="true">Riepilogo</a>
-<a href="../viewPage/ContractManagementPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">Torna alla pagina iniziale</a>
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="../viewPage/ContractManagementPage.jsp"><< Pagina iniziale    </a></li>
+        <li class="page-item"><a class="page-link" href="../controlPage/GetRequests.jsp">Riepilogo >></a></li>
+    </ul>
+</nav>
 </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>

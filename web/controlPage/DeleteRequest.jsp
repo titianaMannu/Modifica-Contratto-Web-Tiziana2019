@@ -1,11 +1,11 @@
-<%@ page import="Beans.RequestBean" %>
+<%@ page import="beans.RequestBean" %>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
 <%
@@ -32,4 +32,4 @@
 
 %>
 
-<jsp:forward page="../controlPage/GetRequests.jsp"/>
+<jsp:forward page="GetRequests.jsp"/>

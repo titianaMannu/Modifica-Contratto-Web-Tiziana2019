@@ -2,25 +2,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="requestBean"
-             class="Beans.RequestBean"
+             class="beans.RequestBean"
              scope="session"/>
 
 
 <jsp:useBean id="InitSession"
-             class="Beans.InitSessionBean"
+             class="beans.InitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitSessionBean"
+             class="beans.SubmitSessionBean"
              scope="session"/>
 
 
+<%
+    if (request.getParameter("okBtn") != null){
+        %><jsp:setProperty name="requestBean" property="reasonWhy"/><%
+        String destination ="../controlPage/DoRequest.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+    }
+%>
 <!--
 todo formattare meglio i messaggi di errore
 -->
@@ -88,10 +95,17 @@ else {%>
         <div class="alert alert-primary" role="alert">
            Attenzione! Sicuro di voler inviare la richiesta? Una volta inviata non potrai più cambiarla.
         </div>
-        <a class="btn btn-primary" href="../controlPage/doRequest.jsp" role="button">Conferma</a>
+        <form action="../viewPage/AlertPage.jsp" method="post">
+        <div class="form-group">
+            <label for="reason">Inserisci una motivazione</label>
+            <textarea class="form-control" id="reason" name="reasonWhy" rows="3"></textarea>
+        </div>
+            <input type="submit" name="okBtn" value="Conferma" >
+        </form>
+
         <a class="btn btn-primary" href="../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContract().getContractId()%>&btnName=make" role="button">Torna alla pagina di gestione delle modifiche</a>
     <%}%>
-    <a href="../viewPage/LoginPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">LogOut</a>
+    <a href="../viewPage/LoginPage.jsp" class="btn btn-primary" role="button" aria-disabled="true">Login</a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
 </body>

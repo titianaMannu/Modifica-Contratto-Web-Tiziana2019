@@ -1,11 +1,11 @@
 
 
 <jsp:useBean id="requestBean"
-             class="Beans.RequestBean"
+             class="beans.RequestBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 
@@ -16,6 +16,6 @@
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }
     else {
-        %><jsp:forward page="../controlPage/GetRequests.jsp"/><%
+        %><jsp:forward page="GetRequests.jsp"/><%
     }
 %>

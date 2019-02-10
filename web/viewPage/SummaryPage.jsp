@@ -1,17 +1,17 @@
-<%@ page import="Beans.RequestBean" %>
+<%@ page import="beans.RequestBean" %>
 <%@ page import="entity.request.RequestStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
-
+<meta http-equiv="refresh" content="6; url=../controlPage/GetRequests.jsp">
 <%
     RequestSession.getMsg().clear();
     if (RequestList.getList().isEmpty()){
@@ -42,7 +42,7 @@
         <%
             for (RequestBean requestBean : RequestList.getList()){
                 %>
-                    <tr><form action="../controlPage/deleteRequest.jsp">
+                    <tr><form action="../controlPage/DeleteRequest.jsp">
                         <th scope="row"><%=requestBean.getType().getDescription()%></th>
                         <th scope="row"><%=requestBean.getObjectToChange().toString()%></th>
                         <th scope="row"><%=requestBean.getReasonWhy()%></th>
@@ -64,16 +64,12 @@
         %>
     </tbody>
 </table>
-<form action="../controlPage/GetContractInfo.jsp">
-     <input type="hidden" name="contractId" value="${RequestSession.contract.contractId}"/>
-    <input type="hidden" name="btnName" value="make">
-    <input type="submit" value="Torna alla Pagina di Gestione Modifiche">
-</form>
- <form action="../viewPage/ContractManagementPage.jsp">
-     <input type="hidden" name="userNickname" value="${RequestSession.userNickName}">
-     <input type="submit" value="Torna alla pagina iniziale">
- </form>
-
+ <nav aria-label="Page navigation example">
+     <ul class="pagination">
+         <li class="page-item"><a class="page-link" href="../viewPage/ContractManagementPage.jsp"><< Pagina iniziale   </a></li>
+         <li class="page-item"><a class="page-link" href="../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContractId()%>&btnName=make">Gestione modifiche >></a></li>
+     </ul>
+ </nav>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
  <script src="../bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
 </body>

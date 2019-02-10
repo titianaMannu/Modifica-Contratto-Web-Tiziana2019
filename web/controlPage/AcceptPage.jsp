@@ -1,12 +1,12 @@
-<%@ page import="Beans.RequestBean" %>
+<%@ page import="beans.RequestBean" %>
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitSessionBean"
+             class="beans.SubmitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
 <%

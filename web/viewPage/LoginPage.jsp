@@ -8,16 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="InitSession"
-             class="Beans.InitSessionBean"
+             class="beans.InitSessionBean"
              scope="session"/>
 
 <jsp:useBean id="RequestSession"
-             class="Beans.RequestSessionBean"
+             class="beans.RequestSessionBean"
              scope="session"/>
 
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitSessionBean"
+             class="beans.SubmitSessionBean"
              scope="session"/>
 <%
 RequestSession.destroy();

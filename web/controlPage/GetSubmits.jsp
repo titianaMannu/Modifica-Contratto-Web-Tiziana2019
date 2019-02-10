@@ -1,11 +1,11 @@
 
 <jsp:useBean id="SubmitSession"
-             class="Beans.SubmitSessionBean"
+             class="beans.SubmitSessionBean"
              scope="session"/>
 
 
 <jsp:useBean id="RequestList"
-             class="Beans.RequestListBean"
+             class="beans.RequestListBean"
              scope="session"/>
 
 <%
@@ -18,4 +18,4 @@
     }
 %>
 
-<jsp:forward page="../viewPage/SubmitPage.jsp"/>
+<jsp:forward page="../viewPage/EvaluationPage.jsp"/>
