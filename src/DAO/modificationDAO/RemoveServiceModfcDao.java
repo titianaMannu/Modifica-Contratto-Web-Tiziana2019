@@ -1,6 +1,6 @@
 package DAO.modificationDAO;
 
-import Beans.RequestBean;
+import beans.RequestBean;
 import entity.ActiveContract;
 import entity.OptionalService;
 import DAO.DBConnect;
@@ -15,7 +15,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//import Beans.OptionalServiceBean;
+//import beans.OptionalServiceBean;
 
 public class RemoveServiceModfcDao extends RequestForModificationDao {
 

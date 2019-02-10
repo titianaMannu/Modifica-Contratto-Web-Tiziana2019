@@ -1,6 +1,6 @@
-package Beans;
+package beans;
 
-import Control.RequestModel;
+import control.RequestControl;
 import entity.ActiveContract;
 
 import java.util.List;
@@ -12,20 +12,16 @@ public class RequestSessionBean {
 
     private String userNickName;
     private int contractId;
-    private RequestModel model;
+    private RequestControl control;
     private ErrorMsg msg;
 
     //costruttore di default inizializza attributi con valori non significativi
     public RequestSessionBean() {
-        model = new RequestModel();
+        control = new RequestControl();
         userNickName = "";
         contractId = -1;
         msg= new ErrorMsg();
     }
-
-  /*  public RequestModel getModel() {
-        return model;
-    }*/
 
     public String getUserNickName() {
         return userNickName;
@@ -33,7 +29,7 @@ public class RequestSessionBean {
 
     public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
-        model.setUserNickname(userNickName);
+        control.setUserNickname(userNickName);
     }
 
     public int getContractId() {
@@ -42,7 +38,7 @@ public class RequestSessionBean {
 
     public void setContractId(int contractId) {
         this.contractId = contractId;
-        model.setActiveContract(contractId);
+        control.setActiveContract(contractId);
     }
 
     public ErrorMsg getMsg() {
@@ -50,31 +46,31 @@ public class RequestSessionBean {
     }
 
     public ActiveContract getContract(){
-        return model.getContract();
+        return control.getContract();
     }
 
     public List<RequestBean> getMyRequest(){
-        return  model.getAllRequests();
+        return  control.getAllRequests();
     }
 
     public boolean isValid(){
-        if (model.getContract() == null) {
+        if (control.getContract() == null) {
             msg.addMsg("Contratto non trovato\nTorna alla pagina iniziale o rieffettua il login\n");
         }
         return !msg.isErr();
     }
 
     public void deleteRequest(RequestBean request){
-        msg.addAllMsg(model.deleteRequest(request));
+        msg.addAllMsg(control.deleteRequest(request));
     }
 
     public void doSend(RequestBean request){
         msg.clear();
-        msg.addAllMsg(model.insertRequest(request));
+        msg.addAllMsg(control.insertRequest(request));
     }
 
     public void destroy(){
-       model = new RequestModel();
+       control = new RequestControl();
     }
 
 }

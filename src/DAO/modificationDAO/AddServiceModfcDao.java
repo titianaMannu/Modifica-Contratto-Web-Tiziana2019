@@ -1,7 +1,7 @@
 package DAO.modificationDAO;
 
 import entity.ActiveContract;
-import Beans.RequestBean;
+import beans.RequestBean;
 import entity.OptionalService;
 import DAO.DBConnect;
 import entity.modification.AddServiceModification;

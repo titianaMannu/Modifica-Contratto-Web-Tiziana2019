@@ -1,8 +1,8 @@
-package Control;
+package control;
 
 import entity.ActiveContract;
-import Beans.ErrorMsg;
-import Beans.RequestBean;
+import beans.ErrorMsg;
+import beans.RequestBean;
 import DAO.ContractDao;
 import DAO.modificationDAO.ModificationDaoFActory;
 import DAO.modificationDAO.RequestForModificationDao;
@@ -22,11 +22,11 @@ import java.util.List;
  * subroutine che si occupa di settare le richieste expired (dovrebbe essere un caso d'uso a parte)
  */
 
-public class SubmitModel {
+public class EvaluateControl {
     private String userNickname;
     private ActiveContract activeContract;
 
-    public SubmitModel() {
+    public EvaluateControl() {
     }
 
     public ActiveContract getContract(){

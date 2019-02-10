@@ -1,6 +1,6 @@
 package DAO.modificationDAO;
 
-import Beans.RequestBean;
+import beans.RequestBean;
 import DAO.DBConnect;
 import entity.ActiveContract;
 import entity.modification.Modification;

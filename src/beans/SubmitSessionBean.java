@@ -1,13 +1,13 @@
-package Beans;
+package beans;
 
-import Control.SubmitModel;
+import control.EvaluateControl;
 import entity.ActiveContract;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class SubmitSessionBean implements Serializable {
-    private SubmitModel model;
+    private EvaluateControl control;
     private int contractId;
     private String userNickName;
     private ErrorMsg msg;
@@ -16,7 +16,7 @@ public class SubmitSessionBean implements Serializable {
     public SubmitSessionBean() {
         userNickName = "";
         contractId = -1;
-        model= new SubmitModel();
+        control = new EvaluateControl();
         msg = new ErrorMsg();
     }
 
@@ -26,7 +26,7 @@ public class SubmitSessionBean implements Serializable {
 
     public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
-        model.setUserNickname(userNickName);
+        control.setUserNickname(userNickName);
     }
 
     public int getContractId() {
@@ -35,7 +35,7 @@ public class SubmitSessionBean implements Serializable {
 
     public void setContractId(int contractId) {
         this.contractId = contractId;
-        model.setActiveContract(contractId);
+        control.setActiveContract(contractId);
     }
 
     public ErrorMsg getMsg() {
@@ -43,31 +43,31 @@ public class SubmitSessionBean implements Serializable {
     }
 
     public boolean isValid(){
-        if (model.getContract() == null) {
+        if (control.getContract() == null) {
             msg.addMsg("Contratto non trovato\nTorna alla pagina iniziale o rieffettua il login\n");
         }
         return !msg.isErr();
     }
 
     public ActiveContract getContract(){
-        return model.getContract();
+        return control.getContract();
     }
 
     public List<RequestBean> getMySubmits(){
-        return model.getSubmits();
+        return control.getSubmits();
     }
 
     public void accept(RequestBean request){
         msg.clear();
-        msg.addAllMsg(model.accept(request));
+        msg.addAllMsg(control.accept(request));
     }
 
     public void decline(RequestBean request){
         msg.clear();
-        msg.addAllMsg(model.decline(request));
+        msg.addAllMsg(control.decline(request));
     }
 
     public void destroy(){
-        model = new SubmitModel();
+        control = new EvaluateControl();
     }
 }

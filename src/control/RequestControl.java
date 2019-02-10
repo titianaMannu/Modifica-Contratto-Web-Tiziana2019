@@ -1,12 +1,12 @@
-package Control;
+package control;
 
 import entity.ActiveContract;
-import Beans.RequestBean;
+import beans.RequestBean;
 
 import DAO.ContractDao;
 import DAO.modificationDAO.ModificationDaoFActory;
 import DAO.modificationDAO.RequestForModificationDao;
-import Beans.ErrorMsg;
+import beans.ErrorMsg;
 import entity.modification.TypeOfModification;
 import entity.request.RequestForModification;
 import entity.request.RequestStatus;
@@ -22,12 +22,12 @@ import java.util.List;
  *
  */
 
-public class RequestModel {
+public class RequestControl {
     private String userNickname = "";
     private ActiveContract activeContract = null;
 
 
-    public RequestModel() {
+    public RequestControl() {
     }
 
     public ActiveContract getContract(){

@@ -1,6 +1,6 @@
-package Beans;
+package beans;
 
-import Control.InitModel;
+import control.InitControl;
 import entity.ActiveContract;
 
 import java.io.Serializable;
@@ -8,12 +8,12 @@ import java.util.List;
 
 public class InitSessionBean implements Serializable {
     private String userNickName;
-    private InitModel model;
+    private InitControl control;
     private ErrorMsg msg;
 
     public InitSessionBean() {
         userNickName = "";
-        model = new InitModel();
+        control = new InitControl();
         msg = new ErrorMsg();
     }
 
@@ -23,7 +23,7 @@ public class InitSessionBean implements Serializable {
 
     public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
-        model.setUserNickname(userNickName);
+        control.setUserNickname(userNickName);
     }
     public ErrorMsg getMsg() {
         return msg;
@@ -34,14 +34,14 @@ public class InitSessionBean implements Serializable {
     }
 
     public List<ActiveContract> getAllContract(){
-        return model.getAllContract();
+        return control.getAllContract();
     }
 
     public int getSubmitsNumber(ActiveContract contract){
-        return model.getSubmits(contract);
+        return control.getSubmits(contract);
     }
 
     public void destroy(){
-      model = new InitModel();
+      control = new InitControl();
     }
 }
