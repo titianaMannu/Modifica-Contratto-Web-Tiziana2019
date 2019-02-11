@@ -1,11 +1,11 @@
 package control;
 
-import entity.ActiveContract;
-import beans.ErrorMsg;
-import beans.RequestBean;
 import DAO.ContractDao;
 import DAO.modificationDAO.ModificationDaoFActory;
 import DAO.modificationDAO.RequestForModificationDao;
+import beans.ErrorMsg;
+import beans.RequestBean;
+import entity.ActiveContract;
 import entity.modification.TypeOfModification;
 import entity.request.RequestForModification;
 import entity.request.RequestStatus;
@@ -19,7 +19,6 @@ import java.util.List;
  * ottieni proposte
  * accetta proposta
  * respingi proposta
- * subroutine che si occupa di settare le richieste expired (dovrebbe essere un caso d'uso a parte)
  */
 
 public class EvaluateControl {
@@ -27,14 +26,12 @@ public class EvaluateControl {
     private ActiveContract activeContract;
 
     public EvaluateControl() {
+        this.userNickname = "";
+        this.activeContract = null;
     }
 
     public ActiveContract getContract(){
         return activeContract;
-    }
-
-    public String getUserNickname() {
-        return userNickname;
     }
 
     public ErrorMsg setUserNickname(String userNickname) {
@@ -47,7 +44,6 @@ public class EvaluateControl {
     }
 
     public ErrorMsg setActiveContract(int contractId) {
-        activeContract = null;
         ErrorMsg msg = new ErrorMsg();
         ContractDao dao = ContractDao.getInstance();
         ActiveContract contract = dao.getContract(contractId);
@@ -73,7 +69,6 @@ public class EvaluateControl {
             e.printStackTrace();
         }
         return list;
-
     }
 
     public ErrorMsg accept(RequestBean requestBean){
@@ -87,9 +82,13 @@ public class EvaluateControl {
                     activeContract, requestBean.getType(),requestBean.getObjectToChange(), userNickname,
                     requestBean.getReasonWhy(),requestBean.getDate(), requestBean.getStatus());
 
+            System.out.println(this.activeContract.toString());
+            request.accept();
+            System.out.println(this.activeContract.toString());
             RequestForModificationDao dao = ModificationDaoFActory.getInstance().createProduct(requestBean.getType());
             dao.updateContract(request);
-            dao.changeRequestStatus(request, RequestStatus.ACCEPTED);
+            //aggiorno lo stato della richiesta
+            dao.setRequestStatus(request);
         }catch(SQLException | NullPointerException e){
             msg.addMsg("Operazione non riuscita: " + e.getMessage());
 
@@ -112,8 +111,10 @@ public class EvaluateControl {
                     activeContract, requestBean.getType(),requestBean.getObjectToChange(), userNickname,
                     requestBean.getReasonWhy(),requestBean.getDate(), requestBean.getStatus());
 
+            request.decline();
             RequestForModificationDao dao = ModificationDaoFActory.getInstance().createProduct(requestBean.getType());
-            dao.changeRequestStatus(request, RequestStatus.DECLINED);
+            //aggiorno lo stato della richiesta
+            dao.setRequestStatus(request);
 
         }catch(SQLException | NullPointerException e){
             msg.addMsg("Operazione non riuscita: " + e.getMessage());

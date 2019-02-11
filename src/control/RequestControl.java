@@ -28,6 +28,8 @@ public class RequestControl {
 
 
     public RequestControl() {
+        this.activeContract = null;
+        this.userNickname = "";
     }
 
     public ActiveContract getContract(){
@@ -48,7 +50,6 @@ public class RequestControl {
     }
 
     public ErrorMsg setActiveContract(int contractId) {
-        activeContract = null;
         ErrorMsg msg = new ErrorMsg();
         ContractDao dao = ContractDao.getInstance();
         ActiveContract contract = dao.getContract(contractId);
