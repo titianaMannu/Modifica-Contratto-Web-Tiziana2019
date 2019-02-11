@@ -17,11 +17,7 @@
 
 <meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContractId()%>&btnName=make">
 <%
-
-    if (RequestSession == null ){
-%><jsp:forward page="../viewPage/AlertPage.jsp"/><%
-    }
-   else  if (!RequestSession.isValid()){
+   if (!RequestSession.isValid()){
     %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }
    else
