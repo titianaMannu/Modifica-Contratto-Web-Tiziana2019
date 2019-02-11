@@ -16,12 +16,16 @@ public class PaymentMethodModification extends Modification {
     }
 
     @Override
-    public void setObjectToChange(Object objectToChange) throws IllegalArgumentException {
+    public void update(ActiveContract contract) {
+        contract.setPaymentMethod(getObjectToChange());
+    }
+
+    @Override
+    public void setObjectToChange(Object objectToChange) throws IllegalArgumentException, NullPointerException {
         super.setObjectToChange(objectToChange);
         if (!(objectToChange instanceof TypeOfPayment)) {
             throw new IllegalArgumentException("*******Argument must be a TypeOfPayment instance*******\n");
         }
-        super.setObjectToChange(objectToChange);
     }
 
     @Override

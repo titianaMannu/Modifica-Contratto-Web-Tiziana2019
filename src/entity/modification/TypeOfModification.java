@@ -28,11 +28,4 @@ public enum TypeOfModification {
         return this.value;
     }
 
-    public static TypeOfModification getType(String inVal){
-        for (TypeOfModification type : values())
-            if (type.name().equals(inVal) )
-                return type;
-        return null;
-    }
-
 }
