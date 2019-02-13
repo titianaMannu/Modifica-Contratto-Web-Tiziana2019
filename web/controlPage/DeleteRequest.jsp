@@ -25,7 +25,6 @@
     }
     else{
         RequestSession.getMsg().addAllMsg(RequestSession.getControl().deleteRequest(requestBean));
-       //RequestSession.deleteRequest(requestBean);
        if(!RequestSession.isValid()){
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
        }

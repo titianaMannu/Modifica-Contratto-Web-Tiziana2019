@@ -12,7 +12,6 @@
 <%
     RequestSession.getMsg().clear();
     RequestSession.getMsg().addAllMsg(RequestSession.getControl().insertRequest(requestBean));
- //   RequestSession.doSend(requestBean);
     if (!RequestSession.isValid()){
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
     }

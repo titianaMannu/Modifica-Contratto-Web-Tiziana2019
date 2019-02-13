@@ -23,8 +23,6 @@
 
     SubmitSession.getMsg().clear();
     SubmitSession.getMsg().addAllMsg(SubmitSession.getControl().decline(requestBean));
- //   SubmitSession.decline(requestBean);
-
     if (!SubmitSession.isValid()){
         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
         }else{
