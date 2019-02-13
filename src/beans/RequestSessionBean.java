@@ -3,12 +3,13 @@ package beans;
 import control.RequestControl;
 import entity.ActiveContract;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * livello architetturale tra le pagine jsp e la logica di controllo dell'applicazione
  */
-public class RequestSessionBean {
+public class RequestSessionBean implements Serializable {
 
     private String userNickName;
     private int contractId;
@@ -21,6 +22,14 @@ public class RequestSessionBean {
         userNickName = "";
         contractId = -1;
         msg= new ErrorMsg();
+    }
+
+    public RequestControl getControl() {
+        return control;
+    }
+
+    public void setControl(RequestControl control) {
+        this.control = control;
     }
 
     public String getUserNickName() {

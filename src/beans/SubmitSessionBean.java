@@ -20,6 +20,10 @@ public class SubmitSessionBean implements Serializable {
         msg = new ErrorMsg();
     }
 
+    public EvaluateControl getControl() {
+        return control;
+    }
+
     public String getUserNickName() {
         return userNickName;
     }
