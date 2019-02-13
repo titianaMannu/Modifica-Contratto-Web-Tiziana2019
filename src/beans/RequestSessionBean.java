@@ -69,15 +69,6 @@ public class RequestSessionBean implements Serializable {
         return !msg.isErr();
     }
 
-    public void deleteRequest(RequestBean request){
-        msg.addAllMsg(control.deleteRequest(request));
-    }
-
-    public void doSend(RequestBean request){
-        msg.clear();
-        msg.addAllMsg(control.insertRequest(request));
-    }
-
     public void destroy(){
        control = new RequestControl();
     }

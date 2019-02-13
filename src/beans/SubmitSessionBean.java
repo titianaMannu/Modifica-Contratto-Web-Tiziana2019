@@ -61,15 +61,6 @@ public class SubmitSessionBean implements Serializable {
         return control.getSubmits();
     }
 
-    public void accept(RequestBean request){
-        msg.clear();
-        msg.addAllMsg(control.accept(request));
-    }
-
-    public void decline(RequestBean request){
-        msg.clear();
-        msg.addAllMsg(control.decline(request));
-    }
 
     public void destroy(){
         control = new EvaluateControl();
