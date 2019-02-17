@@ -11,7 +11,6 @@
              scope="session"/>
 
 
-<meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=SubmitSession.getContractId()%>&btnName=reply">
 <%
 
     if ( !SubmitSession.isValid() ){
@@ -20,6 +19,8 @@
    else
     SubmitSession.getMsg().clear();
 %>
+
+<meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=SubmitSession.getContractId()%>&btnName=reply">
 <html>
 <head>
     <title>Riepilogo</title>

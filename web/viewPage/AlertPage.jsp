@@ -20,6 +20,7 @@
 
 
 <%
+    requestBean.setReasonWhy("");
     if (request.getParameter("okBtn") != null){
         %><jsp:setProperty name="requestBean" property="reasonWhy"/><%
         String destination ="../controlPage/DoRequest.jsp";

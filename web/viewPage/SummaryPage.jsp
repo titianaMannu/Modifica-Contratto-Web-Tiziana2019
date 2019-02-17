@@ -1,5 +1,5 @@
 <%@ page import="beans.RequestBean" %>
-<%@ page import="entity.request.RequestStatus" %>
+<%@ page import="enumeration.RequestStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -11,7 +11,7 @@
              class="beans.RequestListBean"
              scope="session"/>
 
-<meta http-equiv="refresh" content="6; url=../controlPage/GetRequests.jsp">
+
 <%
     RequestSession.getMsg().clear();
     if (RequestList.getList().isEmpty()){
@@ -20,6 +20,7 @@
     }
 %>
 
+<meta http-equiv="refresh" content="6; url=../controlPage/GetRequests.jsp">
 <html>
 <head>
     <title>Riepilogo</title>

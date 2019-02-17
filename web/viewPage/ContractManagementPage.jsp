@@ -1,5 +1,6 @@
 <%@ page import="entity.ActiveContract" %>
 <%@ page import="java.util.List" %>
+<%@ page import="beans.ActiveContractBean" %>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="InitSession"
@@ -18,7 +19,7 @@
 
 
 
-<meta http-equiv="refresh" content="6; url=../viewPage/ContractManagementPage.jsp">
+
 <%
     InitSession.getMsg().clear();
     RequestSession.getMsg().clear();
@@ -30,7 +31,7 @@
        SubmitSession.setUserNickName(usr);
     }
 %>
-
+<meta http-equiv="refresh" content="6; url=../viewPage/ContractManagementPage.jsp">
 <html>
 <head>
     <title>Gestione Contratto</title>
@@ -49,12 +50,12 @@
         </tr>
         </thead>
         <tbody> <%
-                    List<ActiveContract> list = InitSession.getAllContract(); //lista di contratti in lettura
+                    List<ActiveContractBean> list = InitSession.getAllContract(); //lista di contratti in lettura
                     if (list.isEmpty()){
                         InitSession.getMsg().addMsg("Non ci sono contratti da mostrare!\n");
                         %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
                 }
-                    for (ActiveContract contract : list){
+                    for (ActiveContractBean contract : list){
                         %><tr><%
                         out.print("<th scope=\"row\">");
                         out.print(contract.getContractId());

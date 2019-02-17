@@ -1,8 +1,7 @@
-<%@ page import="entity.TypeOfPayment" %>
-<%@ page import="entity.modification.TypeOfModification" %>
+<%@ page import="enumeration.TypeOfPayment" %>
+<%@ page import="enumeration.TypeOfModification" %>
 <%@ page import="java.util.Formatter" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="entity.OptionalService" %>
 <%@ page import="beans.OptionalServiceBean" %>
 
 <jsp:useBean id="requestBean"
@@ -15,7 +14,7 @@
 
 
 
-<meta http-equiv="refresh" content="6; url=../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContractId()%>&btnName=make">
+
 <%
    if (!RequestSession.isValid()){
     %><jsp:forward page="../viewPage/AlertPage.jsp"/><%
@@ -23,7 +22,7 @@
    else
        RequestSession.getMsg().clear();
 %>
-
+<meta http-equiv="refresh" content="15; url=../controlPage/GetContractInfo.jsp?contractId=<%=RequestSession.getContractId()%>&btnName=make">
 <html>
 <head>
     <title>Gestione Modifiche</title>
@@ -59,8 +58,8 @@
 
     else if (request.getParameter("DeleteServiceBtn") != null){ //rimozione servizio
         String valoreSelect = request.getParameter("serviceId");
-        OptionalService service = null;
-        for (OptionalService item : RequestSession.getContract().getServiceList())
+        OptionalServiceBean service = null;
+        for (OptionalServiceBean item : RequestSession.getContract().getServiceList())
             if (item.getServiceId() == Integer.parseInt(valoreSelect)){
                 service = item;
                 break;
@@ -185,7 +184,7 @@
     </thead>
     <tbody>
     <%
-        for (OptionalService service : RequestSession.getContract().getServiceList()){%>
+        for (OptionalServiceBean service : RequestSession.getContract().getServiceList()){%>
     <tr><form action="../viewPage/RequestPage.jsp" method="post">
         <th scope="row"><%=service.getServiceId()%></th>
         <th scope="row"><%=service.getServiceName()%></th>
