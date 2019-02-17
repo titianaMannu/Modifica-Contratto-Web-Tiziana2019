@@ -1,8 +1,6 @@
 package beans;
 
 import control.EvaluateControl;
-import entity.ActiveContract;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -53,7 +51,7 @@ public class SubmitSessionBean implements Serializable {
         return !msg.isErr();
     }
 
-    public ActiveContract getContract(){
+    public ActiveContractBean getContract(){
         return control.getContract();
     }
 

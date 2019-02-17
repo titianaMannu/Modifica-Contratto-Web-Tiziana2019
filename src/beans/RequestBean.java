@@ -1,8 +1,7 @@
 package beans;
 
-import entity.modification.TypeOfModification;
-import entity.request.RequestStatus;
-
+import enumeration.RequestStatus;
+import enumeration.TypeOfModification;
 import java.io.Serializable;
 import java.time.LocalDate;
 

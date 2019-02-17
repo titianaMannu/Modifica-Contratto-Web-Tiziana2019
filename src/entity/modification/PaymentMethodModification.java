@@ -1,11 +1,11 @@
 package entity.modification;
 import entity.ActiveContract;
-import entity.TypeOfPayment;
+import enumeration.TypeOfPayment;
 
 public class PaymentMethodModification extends Modification {
 
     public PaymentMethodModification(Object objectToChange) throws IllegalArgumentException{
-       setObjectToChange(objectToChange);
+        setObjectToChange(objectToChange);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class PaymentMethodModification extends Modification {
     }
 
     @Override
-    protected void setObjectToChange(Object objectToChange) throws IllegalArgumentException{
+    protected void setObjectToChange(Object objectToChange) throws IllegalArgumentException {
         super.setObjectToChange(objectToChange);
         if (!(objectToChange instanceof TypeOfPayment)) {
             throw new IllegalArgumentException("*******Argument must be a TypeOfPayment instance*******\n");

@@ -4,7 +4,7 @@ import beans.RequestBean;
 import DAO.DBConnect;
 import entity.ActiveContract;
 import entity.modification.Modification;
-import entity.request.RequestForModification;
+import entity.RequestForModification;
 
 import java.sql.*;
 import java.util.List;
@@ -75,7 +75,7 @@ public abstract class RequestForModificationDao {
     /**
      *@return una lista contenete tutte le richieste PENDING relative a contrat e destinate a receiver
      */
-    public abstract List<RequestBean> getSubmits(ActiveContract activeContract, String receiver);
+    public abstract List<RequestBean> getSubmits(int contractId, String receiver);
 
     /**
      * Si occupa dell'inserimento della richiesta e della modifica corrispondente

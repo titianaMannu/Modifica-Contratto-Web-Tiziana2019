@@ -54,7 +54,7 @@ public class RequestSessionBean implements Serializable {
         return msg;
     }
 
-    public ActiveContract getContract(){
+    public ActiveContractBean getContract(){
         return control.getContract();
     }
 

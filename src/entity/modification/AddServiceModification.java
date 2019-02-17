@@ -4,9 +4,9 @@ import entity.OptionalService;
 
 import java.util.List;
 
-public class AddServiceModification extends Modification{
+public class AddServiceModification extends Modification {
 
-    public AddServiceModification(Object objectToChange) throws IllegalArgumentException{
+    public AddServiceModification(Object objectToChange) throws  IllegalArgumentException{
         setObjectToChange(objectToChange);
     }
 
@@ -25,11 +25,11 @@ public class AddServiceModification extends Modification{
     public void update(ActiveContract contract) {
         List<OptionalService> list = contract.getServiceList();
         list.add(getObjectToChange()); //aggiunta del servizio
-        contract.setPriceInfo(contract.getNetPrice()); // ricalcolo del prezzo lordo
+        contract.setGrossPrice(); // ricalcolo del prezzo lordo
     }
 
     @Override
-    protected void setObjectToChange(Object objectToChange) throws IllegalArgumentException {
+    protected void setObjectToChange(Object objectToChange) throws  IllegalArgumentException {
         super.setObjectToChange(objectToChange);
         if (!(objectToChange instanceof OptionalService)) {
             throw new IllegalArgumentException("*******Argument must be a OptionalService instance*******\n");

@@ -12,7 +12,7 @@ public class RemoveServiceModification extends Modification {
     }
 
     @Override
-    protected void setObjectToChange(Object objectToChange) throws IllegalArgumentException{
+    protected void setObjectToChange(Object objectToChange) throws IllegalArgumentException {
         super.setObjectToChange(objectToChange);
         if (!(objectToChange instanceof OptionalService)) {
             throw new IllegalArgumentException("*******Argument must be an  OptionalService instance*******\n");
@@ -39,7 +39,7 @@ public class RemoveServiceModification extends Modification {
     public void update(ActiveContract contract) {
         List<OptionalService> list = contract.getServiceList();
         list.remove(getObjectToChange()); //rimozione del servizio
-        contract.setPriceInfo(contract.getNetPrice()); // ricalcolo del prezzo lordo
+        contract.setGrossPrice(); // ricalcolo del prezzo lordo
     }
 
 

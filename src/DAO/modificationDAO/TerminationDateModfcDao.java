@@ -6,9 +6,9 @@ import entity.ActiveContract;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
 import entity.modification.TerminationDateModification;
-import entity.modification.TypeOfModification;
-import entity.request.RequestForModification;
-import entity.request.RequestStatus;
+import enumeration.TypeOfModification;
+import entity.RequestForModification;
+import enumeration.RequestStatus;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,15 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TerminationDateModfcDao extends RequestForModificationDao {
-
-    private static TerminationDateModfcDao ourInstance =  new TerminationDateModfcDao();
-
     private TerminationDateModfcDao() {
         // default constructor must be private because of we are using singleton pattern
     }
 
-    public static synchronized TerminationDateModfcDao getInstance(){
-        return ourInstance;
+    private static class LazyContainer{
+        private static final TerminationDateModfcDao instance = new TerminationDateModfcDao();
+    }
+
+    public static TerminationDateModfcDao getInstance(){
+        return  LazyContainer.instance;
     }
 
     /**
@@ -185,7 +186,7 @@ public class TerminationDateModfcDao extends RequestForModificationDao {
      *@return una lista contenete tutte le richieste  relative contrat e destinate a receiver
      */
     @Override
-    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver) {
+    public List<RequestBean> getSubmits(int contractId, String receiver) {
         List<RequestBean> list = new ArrayList<>();
         String sql = "select  dateOfSubmission, reasonWhy, idRequest, senderNickname\n" +
                 "from requestForModification\n" +
@@ -193,14 +194,14 @@ public class TerminationDateModfcDao extends RequestForModificationDao {
         try(Connection conn = DBConnect.getConnection(); PreparedStatement st = conn.prepareStatement(sql)){
             if (!conn.getAutoCommit() )
                 conn.setAutoCommit(true);
-            st.setInt(1, activeContract.getContractId());
+            st.setInt(1, contractId);
             st.setString(2, receiver);
             st.setInt(3, TypeOfModification.CHANGE_TERMINATIONDATE.getValue());
             st.setInt(4, RequestStatus.PENDING.getValue());
             ResultSet res = st.executeQuery();
             while(res.next()){
                 //tipo di modifica è di tipo REMOVE_SERVICE  in questo caso
-                Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
+                Modification modfc = getModification(contractId, res.getInt("idRequest"));
                 if (modfc == null)
                   continue;
                 RequestBean request = new RequestBean(TypeOfModification.CHANGE_TERMINATIONDATE,

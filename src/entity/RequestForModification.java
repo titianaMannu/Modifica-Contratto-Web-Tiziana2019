@@ -1,9 +1,9 @@
-package entity.request;
+package entity;
 
-import entity.ActiveContract;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
-import entity.modification.TypeOfModification;
+import enumeration.RequestStatus;
+import enumeration.TypeOfModification;
 
 import java.time.LocalDate;
 
@@ -72,10 +72,16 @@ public class RequestForModification {
         setStatus(RequestStatus.DECLINED);
     }
 
-    public void expire(){
-        setStatus(RequestStatus.EXPIRED);
+    /**
+     * rende la richiesta obsoleta se b è true altrimenti torna PENDING
+     * @param b : boolean
+     */
+    public void expire(boolean b){
+        if (b)
+            setStatus(RequestStatus.EXPIRED);
+        else
+            setStatus(RequestStatus.PENDING);
     }
-
 
     public void setRequestId(int requestId)throws IllegalArgumentException {
         if (requestId < 1) throw new IllegalArgumentException("Specificare una richiesta esistente\n");

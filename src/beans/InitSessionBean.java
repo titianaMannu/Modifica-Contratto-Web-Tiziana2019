@@ -1,8 +1,6 @@
 package beans;
 
 import control.InitControl;
-import entity.ActiveContract;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,11 +31,11 @@ public class InitSessionBean implements Serializable {
         return !msg.isErr();
     }
 
-    public List<ActiveContract> getAllContract(){
+    public List<ActiveContractBean> getAllContract(){
         return control.getAllContract();
     }
 
-    public int getSubmitsNumber(ActiveContract contract){
+    public int getSubmitsNumber(ActiveContractBean contract){
         return control.getSubmits(contract);
     }
 

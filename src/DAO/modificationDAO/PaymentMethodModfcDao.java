@@ -3,29 +3,31 @@ package DAO.modificationDAO;
 import beans.RequestBean;
 import DAO.DBConnect;
 import entity.ActiveContract;
-import entity.TypeOfPayment;
+import enumeration.TypeOfPayment;
 import entity.modification.Modification;
 import entity.modification.ModificationFactory;
 import entity.modification.PaymentMethodModification;
-import entity.modification.TypeOfModification;
-import entity.request.RequestForModification;
-import entity.request.RequestStatus;
+import enumeration.TypeOfModification;
+import entity.RequestForModification;
+import enumeration.RequestStatus;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentMethodModfcDao extends RequestForModificationDao {
-
-    private static PaymentMethodModfcDao ourInstance = new PaymentMethodModfcDao();
-
     private PaymentMethodModfcDao() {
         // default constructor must be private because of we are using singleton pattern
     }
 
-    public static synchronized PaymentMethodModfcDao getInstance(){
-        return ourInstance;
+    private static class LazyContainer{
+        private static final PaymentMethodModfcDao instance = new PaymentMethodModfcDao();
     }
+
+    public static PaymentMethodModfcDao getInstance(){
+        return  LazyContainer.instance;
+    }
+
 
     /**
      * Applica la modifica contenuta nella richiesta al contratto
@@ -188,8 +190,8 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
      *@return una lista contenete tutte le richieste  relative contrat e destinate a receiver
      */
     @Override
-    public List<RequestBean> getSubmits(ActiveContract activeContract, String receiver) {
-        if (activeContract == null || receiver == null || receiver.isEmpty())
+    public List<RequestBean> getSubmits(int contractId, String receiver) {
+        if (contractId < 1 || receiver == null || receiver.isEmpty())
             throw new NullPointerException("Specificare il contratto e il destinatario\n");
 
         List<RequestBean> list = new ArrayList<>();
@@ -199,14 +201,14 @@ public class PaymentMethodModfcDao extends RequestForModificationDao {
         try(Connection conn = DBConnect.getConnection(); PreparedStatement st = conn.prepareStatement(sql)){
             if (!conn.getAutoCommit() )
                 conn.setAutoCommit(true);
-            st.setInt(1, activeContract.getContractId());
+            st.setInt(1, contractId);
             st.setString(2, receiver);
             st.setInt(3, TypeOfModification.CHANGE_PAYMENTMETHOD.getValue());
             st.setInt(4, RequestStatus.PENDING.getValue());
             ResultSet res = st.executeQuery();
             while(res.next()){
                 //tipo di modifica è di tipo REMOVE_SERVICE  in questo caso
-                Modification modfc = getModification(activeContract.getContractId(), res.getInt("idRequest"));
+                Modification modfc = getModification(contractId, res.getInt("idRequest"));
                 if (modfc == null)
                     continue;
                 RequestBean request = new RequestBean(TypeOfModification.CHANGE_PAYMENTMETHOD,

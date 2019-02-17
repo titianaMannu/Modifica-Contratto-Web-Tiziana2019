@@ -1,5 +1,6 @@
 package control;
 
+import beans.ActiveContractBean;
 import entity.ActiveContract;
 import beans.RequestBean;
 
@@ -7,9 +8,9 @@ import DAO.ContractDao;
 import DAO.modificationDAO.ModificationDaoFActory;
 import DAO.modificationDAO.RequestForModificationDao;
 import beans.ErrorMsg;
-import entity.modification.TypeOfModification;
-import entity.request.RequestForModification;
-import entity.request.RequestStatus;
+import enumeration.TypeOfModification;
+import entity.RequestForModification;
+import enumeration.RequestStatus;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,9 @@ public class RequestControl {
         this.userNickname = "";
     }
 
-    public ActiveContract getContract(){
-        return activeContract;
+    public ActiveContractBean getContract(){
+        if (activeContract == null ) return null;
+        return activeContract.makeBean();
     }
 
     public String getUserNickname() {
@@ -120,16 +122,11 @@ public class RequestControl {
         return list;
     }
 
-    /**
-     * eliminazione
-     * @param requestBean
-     * @return
-     */
+
     public ErrorMsg deleteRequest(RequestBean requestBean){
         ErrorMsg msg = new ErrorMsg();
         try{
             if (requestBean.getStatus() == RequestStatus.PENDING){
-                //le richieste possono essere fatte solo se sono nello stato CLOSED
                 msg.addMsg("Stato della richiesta non corretto: non può essere chiusa\n");
                 return msg;
             }

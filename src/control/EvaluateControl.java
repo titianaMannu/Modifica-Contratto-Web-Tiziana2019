@@ -3,19 +3,19 @@ package control;
 import DAO.ContractDao;
 import DAO.modificationDAO.ModificationDaoFActory;
 import DAO.modificationDAO.RequestForModificationDao;
+import beans.ActiveContractBean;
 import beans.ErrorMsg;
 import beans.RequestBean;
 import entity.ActiveContract;
-import entity.modification.TypeOfModification;
-import entity.request.RequestForModification;
-import entity.request.RequestStatus;
+import enumeration.TypeOfModification;
+import entity.RequestForModification;
+import enumeration.RequestStatus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ottieni contratto
  * ottieni proposte
  * accetta proposta
  * respingi proposta
@@ -30,8 +30,9 @@ public class EvaluateControl {
         this.activeContract = null;
     }
 
-    public ActiveContract getContract(){
-        return activeContract;
+    public ActiveContractBean getContract(){
+        if (activeContract == null) return null;
+        return activeContract.makeBean();
     }
 
     public ErrorMsg setUserNickname(String userNickname) {
@@ -62,7 +63,7 @@ public class EvaluateControl {
         try{
             for (TypeOfModification type : TypeOfModification.values()) {
                 RequestForModificationDao dao = ModificationDaoFActory.getInstance().createProduct(type);
-                List<RequestBean> tmp = dao.getSubmits(activeContract, userNickname);
+                List<RequestBean> tmp = dao.getSubmits(activeContract.getContractId(), userNickname);
                 list.addAll(tmp);
             }
         }catch (NullPointerException e){
