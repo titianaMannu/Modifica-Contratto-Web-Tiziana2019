@@ -28,7 +28,7 @@
     }else{
         %><jsp:forward page="../controlPage/GetContractInfo.jsp">
         <jsp:param name="btnName" value="reply"/>
-        <jsp:param name="contractId" value="${SubmitSession.contract.contractId}"/>
+        <jsp:param name="contractId" value="${SubmitSession.contractId}"/>
         </jsp:forward><%
     }
 
