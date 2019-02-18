@@ -28,4 +28,17 @@ public class DBConnect {
 
         return conn;
     }
+
+    //semplice implementazione per ottenere una connessione
+    public static Connection getSimpleConnection() throws ClassNotFoundException, SQLException{
+        Connection conn = null;
+        //loading dinamico del driver mysql
+        Class.forName("com.mysql.jdbc.Driver");
+        //url
+        String dburl = "jdbc:mysql://localhost/FERSA?user=modificatore&password=M.odificatore";
+        //apertura connessione
+        conn = DriverManager.getConnection(dburl);
+
+        return conn;
+    }
 }
